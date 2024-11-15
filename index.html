@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Suministros</title>
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+    <h1>Suministros</h1>
+    <label for="origenFac">¿Quien envia la factura?</label>
+    <select id="origenFac" onchange="actualizarOrigenFAC()">
+        <option value="" selected disabled>Selecciona una opción</option>
+        <option value="origenProp">Propietario</option>
+        <option value="origenInqAnt">Inquilino anterior</option>
+        <option value="origenInq">Inquilino</option>
+    </select>
+
+<!-- Bloque de Fechas e Importes -->
+<div class="filaForm">
+    <div class="BloqueForm">
+        <h2>Fechas</h2>
+        <div class="filaFechas">
+            <div>
+                <label for="inicioFac">Fecha inicio de la factura: </label>
+                <input type="date" id="inicioFac" required>
+            </div>
+            <div>
+                <label for="finFac">Fecha fin de la factura: </label>
+                <input type="date" id="finFac" required>
+            </div>
+        </div>
+        <div class="filaFechas">
+            <div>
+                <label for="entradaInq">Fecha de entrada del inquilino: </label>
+                <input type="date" id="entradaInq" required>
+            </div>
+            <div id="salidaInqAnt-container" style="display: none;">
+                <label for="salidaInqAnt">Fecha de salida del inquilino anterior: </label>
+                <input type="date" id="salidaInqAnt" required>
+            </div>
+        </div>
+        <label for="diasProporcionalInq">Dias correspondientes al inquilino: </label>
+        <span id="diasProporcionalInq">0</span>
+        <br>
+        <label for="diasProporcionalProp">Dias correspondientes a la propiedad: </label>
+        <span id="diasProporcionalProp">0</span>
+        <br>
+        <div id="diasProporcionalInqAnt-container" style="display: none;">
+            <label for="diasProporcionalInqAnt">Dias correspondientes al inquilino anterior: </label>
+            <span id="diasProporcionalInqAnt">0</span>
+        </div>
+    </div>
+
+    <div class="BloqueForm">
+        <h2>Importes</h2>
+        <label for="importe">Importe de la Factura </label>
+        <input type="number" id="importe" placeholder="Importe" required>
+        <label>€</label>
+        <br>
+        <label for="importeProporcionalInq">Importe proporcional correspondiente al inquilino: </label>
+        <span id="importeProporcionalInq">0.00</span> €
+        <br>
+        <label for="importeProporcionalProp">Importe proporcional correspondiente al propietario: </label>
+        <span id="importeProporcionalProp">0.00</span> €
+        <div id="importeProporcionalInqAnt-container" style="display: none;">
+            <label for="importeProporcionalInqAnt">Importe proporcional correspondiente al inquilino: </label>
+            <span id="importeProporcionalInqAnt">0.00</span> €
+        </div>
+    </div>
+</div>
+
+
+
+    <!-- Bloque de Forma de Pago y Cambio de Titularidad -->
+    <div class="filaForm">
+        <div class="BloqueForm">
+            <h2>Formas de Pago</h2>
+            <label for="formPago">Selecciona la forma de pago:</label>
+            <select id="formPago" onchange="actualizarFormaPago()">
+                <option value="" selected disabled>Selecciona una opción</option>
+                <option value="propietario">IBAN Propietario</option>
+                <option value="inqAnterior">IBAN Inquilino Anterior</option>
+                <option value="administrador">IBAN Administrador</option>
+                <option value="contactarAdministrador">Contactar Administrador</option>
+                <option value="empresaSuministro">Empresa de Suministro</option>
+            </select>
+
+            <div id="detallesPago">
+                <div id="camposIban">
+                    <label for="iban">Ingresa el IBAN:</label>
+                    <input type="text" id="iban" placeholder="IBAN" required>
+                </div>
+                <div id="contactoPagoCampo" style="display: block;">
+                    <label for="telefonoPago">Teléfono:</label>
+                    <input type="text" id="telefonoPago" placeholder="Teléfono">
+                    <label for="correoPago">Correo:</label>
+                    <input type="text" id="correoPago" placeholder="Correo">
+                </div>
+                <div id="camposEmpresa" style="display: none;">
+                    <label for="empresaNombre">Nombre de la Empresa:</label>
+                    <input type="text" id="empresaNombre" placeholder="Nombre de la Empresa">
+                    <label for="empresaTelefono">Teléfono:</label>
+                    <input type="text" id="empresaTelefono" placeholder="Teléfono">
+                </div>
+            </div>
+        </div>
+
+        <div class="BloqueForm">
+            <h2>Cambio de Titularidad</h2>
+            <label for="cambioTitularidad">¿Es necesario realizar un cambio de titularidad?</label>
+            <select id="cambioTitularidad" onchange="actualizarCambioTitularidad()">
+                <option value="" selected disabled>Selecciona una opción</option>
+                <option value="no">No</option>
+                <option value="si">Sí</option>
+            </select>
+
+            <div id="OpcionesTitularidad" style="display:none;">
+                <label for="quienRealizaCambio">¿Quién realiza el cambio?</label>
+                <select id="quienRealizaCambio">
+                    <option value="" selected disabled>Selecciona una opción</option>
+                    <option value="propietario">Propietario</option>
+                    <option value="inquilino">Inquilino</option>
+                </select>
+                <br>
+                <label for="contactarCon">Contactar con: </label>
+                <select id="contactarCon">
+                    <option value="" selected disabled>Selecciona una opción</option>
+                    <option value="administrador">Administrador</option>
+                    <option value="empresaSuministro">Empresa de Suministro</option>
+                </select>
+                <br>
+                <label for="telefonoCambio">Telefono: </label>
+                <input type="text" id="telefonoCambio">
+                <label for="correoCambio">Correo: </label>
+                <input type="text" id="correoCambio">
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <div id="botonera">
+        <button id="calculo" onclick="calcular()">Calcular</button>
+        <button id="limpiar" onclick="limpiarCampos()">Limpiar</button>
+      </div>
+
+    <!-- Bloque de Textarea -->
+    <div class="filaTextareas">
+        <div class="BloqueTextarea">
+            <h2>Mensaje para el inquilino actual</h2>
+            <textarea id="mensajeInq" rows="4" cols="50" placeholder="Aquí aparecerá el texto del correo"></textarea>
+            <button onclick="copiarTexto('mensajeInq')">Copiar mensaje</button>
+        </div>
+        <div class="BloqueTextarea">
+            <h2>Mensaje para el propietario</h2>
+            <textarea id="mensajeProp" rows="4" cols="50" placeholder="Aquí aparecerá el texto del correo"></textarea>
+            <button onclick="copiarTexto('mensajeProp')">Copiar mensaje</button>
+        </div>
+    </div>          
+    <script src="js/scripts.js"></script>
+</body>
+</html>
