@@ -1,4 +1,5 @@
 TO-DO
 
-1 Revisar mensaje de inquilino cuando inquilino entra nuevo y le llega una factura es de antes de la vivienda
+1 Revisar mensaje de inquilino cuando inquilino entra nuevo y le llega una factura es de antes de la entrada a vivienda, mensaje del propietario da error.
+2 Añadir opcion para que inquilino anterior envie factura sin haber inquilino nuevo.
 2 Poner nombre del titular del IBAN para hacer el pago
