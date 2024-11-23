@@ -14,7 +14,14 @@
         <option value="origenInqAnt">Inquilino anterior</option>
         <option value="origenInq">Inquilino</option>
     </select>
-
+    <div id="existeInquilinoActual" class="opcionInqActual" style="display: none;" onchange="existeInquilinoActual()">
+        <label>
+            <input type="radio" name="inqAhora" value="si" checked> Si
+        </label>
+        <label>
+            <input type="radio" name="inqAhora" value="no"> No
+        </label>
+    </div>
 <!-- Bloque de Fechas e Importes -->
 <div class="filaForm">
     <div class="BloqueForm">
@@ -30,18 +37,19 @@
             </div>
         </div>
         <div class="filaFechas">
-            <div>
+            <div id="entradaInq-container">
                 <label for="entradaInq">Fecha de entrada del inquilino: </label>
-                <input type="date" id="entradaInq" required>
+                <input type="date" id="entradaInq">
             </div>
             <div id="salidaInqAnt-container" style="display: none;">
                 <label for="salidaInqAnt">Fecha de salida del inquilino anterior: </label>
-                <input type="date" id="salidaInqAnt" required>
+                <input type="date" id="salidaInqAnt">
             </div>
         </div>
-        <label for="diasProporcionalInq">Dias correspondientes al inquilino: </label>
-        <span id="diasProporcionalInq">0</span>
-        <br>
+        <div id="diasInqOcultar">
+            <label for="diasProporcionalInq">Dias correspondientes al inquilino: </label>
+            <span id="diasProporcionalInq">0</span>
+        </div>
         <label for="diasProporcionalProp">Dias correspondientes a la propiedad: </label>
         <span id="diasProporcionalProp">0</span>
         <br>
@@ -57,9 +65,10 @@
         <input type="number" id="importe" placeholder="Importe" required>
         <label>€</label>
         <br>
-        <label for="importeProporcionalInq">Importe proporcional correspondiente al inquilino: </label>
-        <span id="importeProporcionalInq">0.00</span> €
-        <br>
+        <div id="importeInqOcultar">
+            <label for="importeProporcionalInq">Importe proporcional correspondiente al inquilino: </label>
+            <span id="importeProporcionalInq">0.00</span> €
+        </div>
         <label for="importeProporcionalProp">Importe proporcional correspondiente al propietario: </label>
         <span id="importeProporcionalProp">0.00</span> €
         <div id="importeProporcionalInqAnt-container" style="display: none;">
@@ -80,6 +89,7 @@
                 <option value="" selected disabled>Selecciona una opción</option>
                 <option value="propietario">IBAN Propietario</option>
                 <option value="inqAnterior">IBAN Inquilino Anterior</option>
+                <option value="inqActual">IBAN Inquilino Actual</option>
                 <option value="administrador">IBAN Administrador</option>
                 <option value="contactarAdministrador">Contactar Administrador</option>
                 <option value="empresaSuministro">Empresa de Suministro</option>
@@ -89,6 +99,8 @@
                 <div id="camposIban">
                     <label for="iban">Ingresa el IBAN:</label>
                     <input type="text" id="iban" placeholder="IBAN" required>
+                    <label for="titularIban">Titular del IBAN:</label>
+                    <input type="text" id="titularIban" placeholder="Titular" required>
                 </div>
                 <div id="contactoPagoCampo" style="display: block;">
                     <label for="telefonoPago">Teléfono:</label>

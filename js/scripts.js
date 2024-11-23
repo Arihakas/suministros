@@ -26,23 +26,24 @@ function limpiarCampos() {
     
     }
     
-   
-
 // funcion para cambiar la visivilidad de algunos elementos dependiendo del origen de la factura.
 function actualizarOrigenFAC() {
     const origenFac = document.getElementById('origenFac').value;
     const salidaInqAnt = document.getElementById('salidaInqAnt-container');
     const diasProporcionalInqAnt = document.getElementById('diasProporcionalInqAnt-container');
-    const importeProporcionalInqAnt = document.getElementById('importeProporcionalInqAnt-container')
+    const importeProporcionalInqAnt = document.getElementById('importeProporcionalInqAnt-container');
+    const existeInqAct = document.getElementById('existeInquilinoActual');
     
     if (origenFac === 'origenInqAnt') {
         salidaInqAnt.style.display = 'block';
         diasProporcionalInqAnt.style.display = 'block';
         importeProporcionalInqAnt.style.display = 'block';
+        existeInqAct.style.display = 'block';
     } else {
         salidaInqAnt.style.display = 'none';
         diasProporcionalInqAnt.style.display = 'none';
         importeProporcionalInqAnt.style.display = 'none';
+        existeInqAct.style.display = 'none';
     }
     
 }
@@ -83,8 +84,6 @@ function actualizarFormaPago() {
     }
 }        
         
-        
-
 // funcion para actualizar campos en caso deser necesario cambiar la titularidad.
 function actualizarCambioTitularidad() {
     const cambioTitularidad = document.getElementById('cambioTitularidad').value;
@@ -271,6 +270,7 @@ function generarMensaje(importeProporcionalInq, importeProporcionalProp, importe
 function calcular() {
 
     //variables
+    const opcionInquilino = document.querySelector('input[name="inqAhora"]:checked').value;
     const importe = parseFloat(document.getElementById('importe').value);
     const fechaInicio = new Date(document.getElementById('inicioFac').value);
     const fechaFin = new Date(document.getElementById('finFac').value);
@@ -286,7 +286,7 @@ function calcular() {
     let diasPropietario = 0;
 
     if (fechaSalidaInqAnt) {
-
+        console.log('opcionInquilino');
         diasInquilinoAnterior = ((fechaSalidaInqAnt - fechaInicio) / (1000 * 60 * 60 * 24))+1;//le sumo uno porque no cuenta el ultimo dia pero en las facturas si
         diasPropietario = ((fechaEntradaInq - fechaSalidaInqAnt) / (1000 * 60 * 60 * 24))-1;//le resto uno para ajustar a lo que la factura realmente refleja
         diasInquilinoActual = ((fechaFin - fechaEntradaInq) / (1000 * 60 * 60 * 24))+1;//le sumo uno porque no cuenta el ultimo dia pero en las facturas si
@@ -329,4 +329,22 @@ function ajustarTamañoTextarea(id) {
     const textarea = document.getElementById(id);
     textarea.style.height = 'auto';  // Resetea la altura antes de ajustar
     textarea.style.height = textarea.scrollHeight + 'px'; // Ajusta la altura al contenido
+}
+
+// Funcion para determinar si hay inquilino actual o no si la factura la envia el inquilino anterior, ocultando los campos relativos al inquilino actual.
+function existeInquilinoActual() {
+    const opcionInquilino = document.querySelector('input[name="inqAhora"]:checked').value;
+    const fecha = document.getElementById('entradaInq-container');
+    const diasInq = document.getElementById('diasInqOcultar');
+    const importeInq = document.getElementById('importeInqOcultar');
+
+    if (opcionInquilino === 'si') {
+        fecha.style.display = 'block';
+        diasInq.style.display = 'block';
+        importeInq.style.display = 'block';
+    } else {
+        fecha.style.display = 'none';
+        diasInq.style.display = 'none';
+        importeInq.style.display = 'none';
+    }
 }
