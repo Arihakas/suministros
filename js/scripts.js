@@ -325,7 +325,11 @@ function calcular() {
                 //caso en el que hay inquilino actual en la vivienda.
                 diasInquilinoAnterior = ((fechaSalidaInqAnt - fechaInicio) / (1000 * 60 * 60 * 24))+1; //le sumo uno porque no cuenta el ultimo dia pero en las facturas si
                 diasInquilinoActual = ((fechaFin - fechaEntradaInq) / (1000 * 60 * 60 * 24))+1; //le sumo uno porque no cuenta el ultimo dia pero en las facturas si
-                
+
+                if (diasInquilinoActual <= 0) {
+                    diasInquilinoActual = 0;
+
+                }
                 //compruebo si al propietario le corresponde algun tramo de la factura y ajusto dias e importe del propietario
 
                 if (diasTotales === diasInquilinoAnterior + diasInquilinoActual){
